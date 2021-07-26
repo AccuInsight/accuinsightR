@@ -23,24 +23,22 @@ accu_workspace_run <- function(client = NULL) {
   argv <- parser$parse_args()
   
   library(subprocess)
-  library(glue)
-  
-  handle <- spawn_process('/usr/local/bin/R', c('CMD', 'BATCH', argv$codePath, glue('/tmp/output_', argv$workspaceRunId, '.log')))
+  handle <- spawn_process('/usr/local/bin/R', c('CMD', 'BATCH', argv$codePath, paste0('/tmp/output_', argv$workspaceRunId, '.log')))
   while(process_state(handle)=='running') {
     Sys.sleep(1)
   }
   return_code <- process_return_code(handle)
   
-  is_success <- TRUE
+  isSuccess <- "True"
   if (return_code != 0) {
-    is_success <- FALSE
+    isSuccess <- "False"
   }
   
   post_data = list(
-    "workspace_run_id" = argv$workspaceRunId,
-    "stop_flag" = argv$stopFlag,
-    "stop_timeout" = argv$stopTimeout,
-    "is_success" = is_success
+    "workspaceRunId" = argv$workspaceRunId,
+    "stopFlag" = argv$stopFlag,
+    "stopTimeout" = argv$stopTimeout,
+    "isSuccess" = isSuccess
   )
   
   print(jsonlite::toJSON(post_data, auto_unbox = TRUE))
