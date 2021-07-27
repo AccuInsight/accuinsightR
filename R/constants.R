@@ -34,6 +34,6 @@ accu.consts <- list(
   SELECTED_METRICS = "selected_metrics",
   USED_LIBRARY = "used_library",
 
-  BACK_END_API_URL = 'http://localhost:8080/',
+  BACK_END_API_URL = 'http://modeler-api.accu:8080/',
   BACK_END_API_URI = ''
 )
