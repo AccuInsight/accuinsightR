@@ -27,3 +27,19 @@ new_accu_run_info <- function(
     class = "accu_run_info"
   )
 }
+
+new_accu_ws_run_info <- function(
+  workspaceRunId = NA,
+  isSuccess = NA,
+  stopFlag = NA,
+  stopTimeout = NA) {
+  structure(
+    list(
+      workspaceRunId = workspaceRunId,
+      isSuccess = isSuccess,
+      stopFlag = stopFlag,
+      stopTimeout = stopTimeout
+    ),
+    class = "accu_ws_run_info"
+  )
+}
