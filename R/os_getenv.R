@@ -10,11 +10,11 @@ get_os_env <- function (env_type = "LC", env_path = NULL, env_file = NULL) {
   home_dir = get_user_home_dir()
   file_name = const_val$EXPERIMENT_INFO_FILE
   
-  if (env_path != NULL) {
+  if (length(env_path) > 0) {
     home_dir = env_path
   }
   
-  if (env_file != NULL) {
+  if (length(env_file) > 0) {
     file_name = env_file
   }
   
