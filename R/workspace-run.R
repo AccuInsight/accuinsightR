@@ -11,7 +11,8 @@ accu_workspace_run <- function(client = NULL) {
   
   # read workspace environment
   # project_id, workspace_id
-  env_value = get_os_env()
+  # add env_path hard coding
+  env_value = get_os_env(env_path = '/home/rstudio')
   
   library(argparse)
   parser <- ArgumentParser()
@@ -29,9 +30,9 @@ accu_workspace_run <- function(client = NULL) {
   }
   return_code <- process_return_code(handle)
   
-  isSuccess <- "True"
+  isSuccess <- "true"
   if (return_code != 0) {
-    isSuccess <- "False"
+    isSuccess <- "false"
   }
   
   post_data = list(
