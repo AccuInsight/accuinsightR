@@ -9,6 +9,15 @@ get_os_env <- function (env_type = "LC", env_path = NULL, env_file = NULL) {
   const_val = accu.consts
   home_dir = get_user_home_dir()
   file_name = const_val$EXPERIMENT_INFO_FILE
+  
+  if (env_path != NULL) {
+    home_dir = env_path
+  }
+  
+  if (env_file != NULL) {
+    file_name = env_file
+  }
+  
   read_file = file.path(home_dir, file_name)
 
   # Read in the data
