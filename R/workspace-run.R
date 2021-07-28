@@ -12,7 +12,7 @@ accu_workspace_run <- function(client = NULL) {
   # read workspace environment
   # project_id, workspace_id
   # add env_path hard coding
-  env_value = get_os_env(env_path = '/home/rstudio')
+  env_value = get_os_env()
   
   library(argparse)
   parser <- ArgumentParser()
