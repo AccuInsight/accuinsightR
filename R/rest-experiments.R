@@ -42,8 +42,6 @@ set_run_info <- function (current_run_meta, user_sso_id) {
   path <- ""
   model_path <- ""
   json_path <- ""
-  
-  print(paste("model_path is null:", is.null(model_path)))
 
   #if (!is.null(current_run_meta[[const_val$RUN_INFO_BEST_MODEL_H5_PATH]]))
   #    model_path <- current_run_meta[[const_val$RUN_INFO_BEST_MODEL_H5_PATH]]
@@ -67,8 +65,6 @@ set_run_info <- function (current_run_meta, user_sso_id) {
     path = current_run_meta[[const_val$RUN_INFO_MODEL_FILE_PATH]]
   else
     tryCatch({path = current_Rfile <- rstudioapi::getSourceEditorContext()$path}, error = function(e) {print("current_Rfile couldn't be found")})
-
-  print(paste("model_path is null:", is.null(model_path)))
   
   run_info <- list(
     name = current_run_meta[[const_val$RUN_INFO_NAME]],
@@ -85,7 +81,6 @@ set_run_info <- function (current_run_meta, user_sso_id) {
   )
 
   return(run_info)
-
 }
 
 call_run_parser <- function () {
