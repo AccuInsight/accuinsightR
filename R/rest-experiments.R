@@ -24,7 +24,7 @@ set_run_info_s3 <- function (current_run_meta, user_sso_id) {
     status="FINISHED",
     note="",
     #path="sample/untitled1.R",
-    #path=current_run_meta[[const_val$RUN_INFO_MODEL_FILE_PATH]],
+    path=current_run_meta[[const_val$RUN_INFO_MODEL_FILE_PATH]],
     modelPath=model_path,
     jsonPath=json_path
   )
@@ -40,17 +40,17 @@ set_run_info <- function (current_run_meta, user_sso_id) {
   endDt <- "1602554188390"
   duration <- "3"
   path <- ""
-  modelPath <- ""
-  jsonPath <- ""
+  model_path <- ""
+  json_path <- ""
 
   #if (!is.null(current_run_meta[[const_val$RUN_INFO_BEST_MODEL_H5_PATH]]))
   #    model_path <- current_run_meta[[const_val$RUN_INFO_BEST_MODEL_H5_PATH]]
 
   if (!is.null(current_run_meta[[const_val$RUN_INFO_BEST_MODEL_RDA_PATH]]))
-    modelPath <- current_run_meta[[const_val$RUN_INFO_BEST_MODEL_RDA_PATH]]
+    model_path <- current_run_meta[[const_val$RUN_INFO_BEST_MODEL_RDA_PATH]]
 
   if (!is.null(current_run_meta[[const_val$RUN_INFO_BEST_MODEL_JSON_PATH]]))
-    jsonPath = current_run_meta[[const_val$RUN_INFO_BEST_MODEL_JSON_PATH]]
+    json_path = current_run_meta[[const_val$RUN_INFO_BEST_MODEL_JSON_PATH]]
 
   if (!is.null(current_run_meta[[const_val$RUN_INFO_START_TIME]]))
     creaDt = current_run_meta[[const_val$RUN_INFO_START_TIME]]
@@ -62,10 +62,10 @@ set_run_info <- function (current_run_meta, user_sso_id) {
     duration = current_run_meta[[const_val$RUN_INFO_DELTA_TIME]]
 
   if (!is.null(current_run_meta[[const_val$RUN_INFO_MODEL_FILE_PATH]]))
-    path = current_run_meta[[const_val$RUN_INFO_DELTA_TIME]]
+    path = current_run_meta[[const_val$RUN_INFO_MODEL_FILE_PATH]]
   else
-    path = current_Rfile <- rstudioapi::getSourceEditorContext()$path
-
+    tryCatch({path = current_Rfile <- rstudioapi::getSourceEditorContext()$path}, error = function(e) {print("current_Rfile couldn't be found")})
+  
   run_info <- list(
     name = current_run_meta[[const_val$RUN_INFO_NAME]],
     userId = user_sso_id,
@@ -76,12 +76,11 @@ set_run_info <- function (current_run_meta, user_sso_id) {
     status = "FINISHED",
     note = "",
     path = path,
-    modelPath = modelPath,
-    jsonPath = jsonPath
+    modelPath = model_path,
+    jsonPath = json_path
   )
 
   return(run_info)
-
 }
 
 call_run_parser <- function () {
@@ -113,10 +112,7 @@ accu_create_experiment <- function(artifact_location = NULL, client = NULL) {
   run_meta = accu_get_current_run()
   run_proto <- set_run_info(current_run_meta = run_meta,
                user_sso_id = env_value[[const_val$ENV_USER_SSO_ID]])
-
-
-
-  git_meta = sprintf('{"url":"%s", "commit": "%s"}', "", "")
+    git_meta = sprintf('{"url":"%s", "commit": "%s"}', "", "")
   git_meta_data = jsonlite::fromJSON(git_meta)
   # to get parameter and metric
   run_data <- call_run_parser()
@@ -136,7 +132,7 @@ accu_create_experiment <- function(artifact_location = NULL, client = NULL) {
     #"artifact_location" = "artifact_location" # TODO 추후 재확인 필요
     #"visuals" = run_data$visual, # TODO 추후 재확인 필요
   )
-
+  print(jsonlite::toJSON(post_data, auto_unbox = TRUE))
   response <- accu_rest(
     "experiments", "create",
     client = client, verb = "POST",
@@ -144,5 +140,5 @@ accu_create_experiment <- function(artifact_location = NULL, client = NULL) {
     env_value = env_value
   )
   response$experiment_id
-
+  return(post_data)
 }

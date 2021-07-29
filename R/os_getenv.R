@@ -7,18 +7,18 @@ get_user_home_dir <- function () {
 #' Read .env file from user home directory
 get_os_env <- function (env_type = "LC", env_path = NULL, env_file = NULL) {
   const_val = accu.consts
-  home_dir = get_user_home_dir()
+  file_dir = const_val$EXPERIMENT_INFO_FILE_DIR
   file_name = const_val$EXPERIMENT_INFO_FILE
   
-  if (length(env_path) > 0) {
-    home_dir = env_path
+  if (!is.null(env_path)) {
+    file_dir = env_path
   }
   
-  if (length(env_file) > 0) {
+  if (!is.null(env_file)) {
     file_name = env_file
   }
   
-  read_file = file.path(home_dir, file_name)
+  read_file = file.path(file_dir, file_name)
 
   # Read in the data
   # x <- scan(normalizePath(read_file), what="", sep="\n")
@@ -40,7 +40,7 @@ get_os_env <- function (env_type = "LC", env_path = NULL, env_file = NULL) {
 #' @export
 get_runs_path <- function () {
   const_val <- accu.consts
-  home_dir <- get_user_home_dir()
+  home_dir <- const_val$EXPERIMENT_INFO_FILE_DIR
   run_dir = file.path(home_dir, const_val$RUNS_ROOT)
 
   if (file.exists(run_dir) == FALSE){dir.create(run_dir)}

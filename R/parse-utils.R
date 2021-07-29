@@ -17,11 +17,10 @@ init_metric_data <- function () {
 
 set_metric_data <- function(jsonData) {
   result_dict <- list()
-  metric_keys <- names(jsonData)
-
+  metric_keys = names(jsonData)
   for (key in metric_keys) {
     data <- jsonData[[key]]
-    result_dict <- c(result_dict, list(set_metric_values(data, key)))
+    result_dict <- c(result_dict,list(set_metric_values(data, key)))
   }
   return(result_dict)
 }
@@ -217,15 +216,16 @@ get_install_package <- function (isUsage) {
   #}
   result_dict <- list("dependency" = list("data" = list()))
   if(isUsage) {
-    current_Rfile <- rstudioapi::getSourceEditorContext()$path
-    libraryList <- scan(current_Rfile, what="", sep="\n")
+    file_path = ''
+    tryCatch({file_path = current_Rfile <- rstudioapi::getSourceEditorContext()$path}, error = function(e) {print("current_Rfile couldn't be found")})
+    libraryList <- scan(file_path, what="", sep="\n")
     x <- libraryList[grep("library", libraryList)]
     if (is.null(x)) {
       result_dict <- list("dependency" = list("data" = list("data" = list())))
       result_dict$dependency$data$data <- NULL
     } else {
-      packageNaemList <- stringr::str_sub(x, 9, -2)
-      for (i in packageNaemList) {
+      packageNameList <- stringr::str_sub(x, 9, -2)
+      for (i in packageNameList) {
         str <- sprintf('%s==%s', i, packageDescription(i)$Version)
         result_dict$dependency$data <- c(result_dict$dependency$data, str)
       }
@@ -237,5 +237,6 @@ get_install_package <- function (isUsage) {
     result_dict[["dependency"]][["data"]] <- pkglist
   }
 
+  print(jsonlite::toJSON(result_dict, auto_unbox = TRUE))
   return (result_dict)
 }
