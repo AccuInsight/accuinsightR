@@ -64,7 +64,8 @@ set_run_info <- function (current_run_meta, user_sso_id) {
   if (!is.null(current_run_meta[[const_val$RUN_INFO_MODEL_FILE_PATH]]))
     path = current_run_meta[[const_val$RUN_INFO_MODEL_FILE_PATH]]
   else
-    tryCatch({path = current_Rfile <- rstudioapi::getSourceEditorContext()$path}, error = function(e) {path = current_Rfile <- ''})
+    path = ''
+    tryCatch({path = current_Rfile <- rstudioapi::getSourceEditorContext()$path}, error = function(e) {print("current_Rfile couldn't be found")})
 
   run_info <- list(
     name = current_run_meta[[const_val$RUN_INFO_NAME]],
