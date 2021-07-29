@@ -224,8 +224,8 @@ get_install_package <- function (isUsage) {
       result_dict <- list("dependency" = list("data" = list("data" = list())))
       result_dict$dependency$data$data <- NULL
     } else {
-      packageNaemList <- str_sub(x, 9, -2)
-      for (i in packageNaemList) {
+      packageNameList <- stringr::str_sub(x, 9, -2)
+      for (i in packageNameList) {
         str <- sprintf('%s==%s', i, packageDescription(i)$Version)
         result_dict$dependency$data <- c(result_dict$dependency$data, str)
       }
