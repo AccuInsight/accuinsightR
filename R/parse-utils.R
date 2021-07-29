@@ -217,7 +217,7 @@ get_install_package <- function (isUsage) {
   result_dict <- list("dependency" = list("data" = list()))
   if(isUsage) {
     tryCatch({file_path = current_Rfile <- rstudioapi::getSourceEditorContext()$path}, error = function(e) {file_path = current_Rfile <- ''})
-    libraryList <- scan(current_Rfile, what="", sep="\n")
+    libraryList <- scan(file_path, what="", sep="\n")
     x <- libraryList[grep("library", libraryList)]
     if (is.null(x)) {
       result_dict <- list("dependency" = list("data" = list("data" = list())))
