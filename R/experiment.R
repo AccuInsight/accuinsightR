@@ -17,10 +17,10 @@ write_json = function(json_object, json_path) {
 #'
 #' Add you experiment to list of model experiments when using accuinsight modeler service.
 #' @param model_name: your model name
-#' @param testdata: test data for computing roc, pr
+#' @param test_data: test data for computing roc, pr
 #' @export
 #' @examples
-add_experiment = function(model_name, testdata){
+add_experiment = function(model_name, test_data){
 
   model_info = list()
   Sys.setenv(TZ= "Asia/Seoul")
