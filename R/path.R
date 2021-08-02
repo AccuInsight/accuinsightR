@@ -10,7 +10,8 @@
 
 create_path = function(path) {
   dir.create(file.path(path))
-  Sys.chmod(save_model_path, "0777", use_umask = FALSE)
+  Sys.chmod(file.path(save_model_path), "0777", use_umask = FALSE)
+  print('dir created')
 }
 
 #' @export
