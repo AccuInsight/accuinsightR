@@ -26,7 +26,7 @@ accu_ws_run_rest_path <- function(version, env_value, mode) {
 
 #' @importFrom httr timeout
 accu_rest_timeout <- function() {
-  httr::timeout(120)
+  httr::timeout(180)
 }
 
 try_parse_response_as_text <- function(response) {
@@ -73,8 +73,6 @@ accu_rest <- function( ..., client, query = NULL, data = NULL, env_value = NULL,
   api_url <- paste0(host_creds$host, accu_rest_path(version, env_value))
   #api_url <- file.path(host_creds$host, accu_rest_path(version, env_value), paste(args, collapse = "/"))
   req_headers <- do.call(httr::add_headers, rest_config$headers)
-  
-  print(paste('httr timeout', accu_rest_timeout()))
 
   get_response <- switch(
     verb,
