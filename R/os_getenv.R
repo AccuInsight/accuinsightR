@@ -43,7 +43,10 @@ get_runs_path <- function () {
   home_dir <- const_val$EXPERIMENT_INFO_FILE_DIR
   run_dir = file.path(home_dir, const_val$RUNS_ROOT)
 
-  if (file.exists(run_dir) == FALSE){dir.create(run_dir)}
+  if (file.exists(run_dir) == FALSE){
+    dir.create(run_dir)
+    Sys.chmod(run_dir, mode = "0777", use_umask = FALSE)
+  }
 
   return(run_dir)
 }

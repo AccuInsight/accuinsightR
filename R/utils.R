@@ -1,3 +1,6 @@
+#source('get.R')
+#source('path.R')
+
 # save a model
 
 #' @export
@@ -7,6 +10,7 @@ saveModel = function(model_name, run_id){
                            modelMethod(model_name), modelType(model_name), '-',
                            run_id, '.rda')
   saveRDS(model_name, file = save_model_path)
+  Sys.chmod(save_model_path, mode = "0666", use_umask = FALSE)
 }
 
 

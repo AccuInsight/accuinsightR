@@ -17,7 +17,7 @@ accu_ws_run_rest_path <- function(version, env_value, mode) {
   
   projectID <- env_value[[const_val$ENV_PROJECT_ID]]
   workspaceID <- env_value[[const_val$ENV_WORKSPACE_ID]]
-  endpoint <- sprintf("project/%s/workspace/%s/%s",projectID, workspaceID, mode)
+  endpoint <- sprintf("project/%s/workspace/%s/%s", projectID, workspaceID, mode)
   switch(
     version,
     "1.0" = endpoint
@@ -26,7 +26,7 @@ accu_ws_run_rest_path <- function(version, env_value, mode) {
 
 #' @importFrom httr timeout
 accu_rest_timeout <- function() {
-  httr::timeout(getOption("accu.rest.timeout", 60))
+  httr::timeout(180)
 }
 
 try_parse_response_as_text <- function(response) {
