@@ -7,7 +7,7 @@
 #source('path.R')
 #source('utils.R')
 
-write_json = funcion(json_object, json_path) {
+write_json = function(json_object, json_path) {
   write(json_object, file = json_path)
   Sys.chmod(json_path, mode = "0666", use_umask = FALSE)
 }
