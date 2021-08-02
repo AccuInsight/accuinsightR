@@ -26,7 +26,7 @@ accu_ws_run_rest_path <- function(version, env_value, mode) {
 
 #' @importFrom httr timeout
 accu_rest_timeout <- function() {
-  httr::timeout(getOption("accu.rest.timeout", 120))
+  httr::timeout(120)
 }
 
 try_parse_response_as_text <- function(response) {
