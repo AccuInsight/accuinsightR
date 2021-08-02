@@ -133,6 +133,7 @@ accu_create_experiment <- function(artifact_location = NULL, client = NULL) {
     #"visuals" = run_data$visual, # TODO 추후 재확인 필요
   )
   print(jsonlite::toJSON(post_data, auto_unbox = TRUE))
+  print('accu_rest called')
   response <- accu_rest(
     "experiments", "create",
     client = client, verb = "POST",
