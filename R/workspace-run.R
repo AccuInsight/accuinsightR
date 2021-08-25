@@ -19,12 +19,20 @@ accu_workspace_run <- function(client = NULL) {
   parser$add_argument("--workspaceRunId", help="ws run id", type="integer")
   parser$add_argument("--codePath", help="code path for running")
   parser$add_argument("--stopFlag", help="if workspace is stopped after running code")
-  parser$add_argument("--stopTimeout", help="workspace stop waiting timeout", type="integer", default=60)
+  parser$add_argument("--stopTimeout", help="workspace stop waiting timeout", type="integer", default=600)
+  parser$add_argument("--args", help="custom code arguments")
   
   argv <- parser$parse_args()
   
+  if (is.null(argv$args)) {
+    library(stringr)
+    args <- paste0(' --', str_replace_all(str_replace_all(argv$args, ',', ' --'), ':', '='))
+  } else {
+    args <- ''
+  }
+  
   library(subprocess)
-  handle <- spawn_process('/usr/local/bin/R', c('CMD', 'BATCH', argv$codePath, paste0('/tmp/output_', argv$workspaceRunId, '.log')))
+  handle <- spawn_process('/usr/local/bin/Rscript', c(paste(argv$codePath, args), paste0(' > /tmp/output_', argv$workspaceRunId, '.log')))
   while(process_state(handle)=='running') {
     Sys.sleep(1)
   }
