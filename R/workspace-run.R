@@ -14,8 +14,7 @@ accu_workspace_run <- function(client = NULL) {
   # add env_path hard coding
   env_value = get_os_env()
   
-  library(argparse)
-  parser <- ArgumentParser()
+  parser <- argparse::ArgumentParser()
   parser$add_argument("--workspaceRunId", help="ws run id", type="integer")
   parser$add_argument("--codePath", help="code path for running")
   parser$add_argument("--stopFlag", help="if workspace is stopped after running code")
@@ -26,13 +25,13 @@ accu_workspace_run <- function(client = NULL) {
   
   if (is.null(argv$args)) {
     library(stringr)
-    args <- paste0(' --', str_replace_all(str_replace_all(argv$args, ',', ' --'), ':', '='))
+    args <- str_replace_all(str_replace_all(str_replace_all(argv$args, '[["hyphen"]]', ''), '[[:equal:]]', '='), '[[:space:]]', ' ')
   } else {
     args <- ''
   }
   
   library(subprocess)
-  handle <- spawn_process('/usr/local/bin/Rscript', c(paste(argv$codePath, args), paste0(' > /tmp/output_', argv$workspaceRunId, '.log')))
+  handle <- spawn_process('/usr/local/bin/R', c('CMD', 'BATCH', paste0('--args', args), argv$codePath, paste0('/tmp/output_', argv$workspaceRunId, '.log')))
   while(process_state(handle)=='running') {
     Sys.sleep(1)
   }
