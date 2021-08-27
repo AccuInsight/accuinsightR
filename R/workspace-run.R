@@ -30,6 +30,8 @@ accu_workspace_run <- function(client = NULL) {
     args <- ''
   }
   
+  print(args)
+  
   library(subprocess)
   handle <- spawn_process('/usr/local/bin/R', c('CMD', 'BATCH', paste0('--args', args), argv$codePath, paste0('/tmp/output_', argv$workspaceRunId, '.log')))
   while(process_state(handle)=='running') {
