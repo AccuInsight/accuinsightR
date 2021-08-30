@@ -4,7 +4,7 @@
 #'
 #' @param name The name of the experiment to create.
 #' @export
-accu_workspace_run <- function(args, client = NULL) {
+accu_workspace_run <- function(client = NULL) {
   accu_set_tracking_uri()
   const_val <- accu.consts
   client <- resolve_client(client)
@@ -23,15 +23,13 @@ accu_workspace_run <- function(args, client = NULL) {
   
   argv <- parser$parse_args()
   
-  print(argv)
-  
   if (is.null(argv$argument)) {
     args <- gsub('\\[\\[:hyphen:\\]\\]', '--', gsub('\\[\\[:equal:\\]\\]', '=', gsub('\\[\\[:space:\\]\\]', ' ', argv$argument)))
   } else {
     args <- ''
   }
   
-  print(argv$argument)
+  print(args)
   
   library(subprocess)
   handle <- spawn_process('/usr/local/bin/R', c('CMD', 'BATCH', paste('--args', args), argv$codePath, paste0('/tmp/output_', argv$workspaceRunId, '.log')))
