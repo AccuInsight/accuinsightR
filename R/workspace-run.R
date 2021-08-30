@@ -23,7 +23,7 @@ accu_workspace_run <- function(client = NULL) {
   
   argv <- parser$parse_args()
   
-  if (is.null(argv$argument)) {
+  if (!is.null(argv$argument)) {
     args <- gsub('\\[\\[:hyphen:\\]\\]', '--', gsub('\\[\\[:equal:\\]\\]', '=', gsub('\\[\\[:space:\\]\\]', ' ', argv$argument)))
   } else {
     args <- ''
