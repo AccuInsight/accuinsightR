@@ -4,7 +4,7 @@
 #'
 #' @param name The name of the experiment to create.
 #' @export
-accu_workspace_run <- function(client = NULL) {
+accu_workspace_run <- function(args, client = NULL) {
   accu_set_tracking_uri()
   const_val <- accu.consts
   client <- resolve_client(client)
