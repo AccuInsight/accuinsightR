@@ -19,19 +19,19 @@ accu_workspace_run <- function(args, client = NULL) {
   parser$add_argument("--codePath", help="code path for running")
   parser$add_argument("--stopFlag", help="if workspace is stopped after running code")
   parser$add_argument("--stopTimeout", help="workspace stop waiting timeout", type="integer", default=600)
-  parser$add_argument("--args", help="custom code arguments")
+  parser$add_argument("--argument", help="custom code arguments")
   
   argv <- parser$parse_args()
   
   print(argv)
   
-  if (is.null(argv$args)) {
-    args <- gsub('\\[\\[:hyphen:\\]\\]', '--', gsub('\\[\\[:equal:\\]\\]', '=', gsub('\\[\\[:space:\\]\\]', ' ', argv$args)))
+  if (is.null(argv$argument)) {
+    args <- gsub('\\[\\[:hyphen:\\]\\]', '--', gsub('\\[\\[:equal:\\]\\]', '=', gsub('\\[\\[:space:\\]\\]', ' ', argv$argument)))
   } else {
     args <- ''
   }
   
-  print(args)
+  print(argument)
   
   library(subprocess)
   handle <- spawn_process('/usr/local/bin/R', c('CMD', 'BATCH', paste('--args', args), argv$codePath, paste0('/tmp/output_', argv$workspaceRunId, '.log')))
