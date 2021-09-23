@@ -40,11 +40,6 @@ accu_workspace_run <- function(client = NULL) {
     isSuccess <- "false"
   }
   
-  force_stop <- "false"
-  if (return_code == 9) {
-    force_stop <- "true"
-  }
-  
   post_data = list(
     "workspaceRunId" = argv$workspaceRunId,
     "stopTimeout" = argv$stopTimeout,
@@ -54,7 +49,6 @@ accu_workspace_run <- function(client = NULL) {
   print(jsonlite::toJSON(post_data, auto_unbox = TRUE))
   response <- accu_ws_run_rest(
     mode = "afterRun",
-    force_stop = force_stop,
     client = client, verb = "POST",
     data = post_data,
     env_value = env_value
