@@ -12,12 +12,12 @@ accu_rest_path <- function(version, env_value) {
   )
 }
 
-accu_ws_run_rest_path <- function(version, env_value, mode) {
+accu_ws_run_rest_path <- function(version, env_value, mode, force_stop) {
   const_val <- accu.consts
   
   projectID <- env_value[[const_val$ENV_PROJECT_ID]]
   workspaceID <- env_value[[const_val$ENV_WORKSPACE_ID]]
-  endpoint <- sprintf("project/%s/workspace/%s/%s", projectID, workspaceID, mode)
+  endpoint <- sprintf("project/%s/workspace/%s/%s?forceStop=%s", projectID, workspaceID, mode, force_stop)
   switch(
     version,
     "1.0" = endpoint
@@ -127,12 +127,12 @@ accu_rest <- function( ..., client, query = NULL, data = NULL, env_value = NULL,
 }
 
 #' @importFrom httr GET POST add_headers config content
-accu_ws_run_rest <- function( ..., mode, client, query = NULL, data = NULL, env_value = NULL, verb = "GET", version = "1.0",
+accu_ws_run_rest <- function( ..., mode, force_stop, client, query = NULL, data = NULL, env_value = NULL, verb = "GET", version = "1.0",
                        max_rate_limit_interval=60) {
   host_creds <- client$get_host_creds()
   rest_config <- get_rest_config(host_creds)
   args <- list(...)
-  api_url <- paste0(host_creds$host, accu_ws_run_rest_path(version, env_value, mode))
+  api_url <- paste0(host_creds$host, accu_ws_run_rest_path(version, env_value, mode, force_stop))
   req_headers <- do.call(httr::add_headers, rest_config$headers)
   
   get_response <- switch(
