@@ -29,7 +29,7 @@ accu_workspace_run <- function(client = NULL) {
   }
   
   library(subprocess)
-  handle <- spawn_process('/usr/local/bin/Rscript' c(paste0('--workspaceRunId=', argv$workspaceRunId), paste('--args', args), gsub('\\[\\[:space:\\]\\]', ' ', argv$codePath), paste0('/tmp/output_', argv$workspaceRunId, '.log')))
+  handle <- spawn_process('/usr/local/bin/Rscript', c(paste0('--workspaceRunId=', argv$workspaceRunId), paste('--args', args), gsub('\\[\\[:space:\\]\\]', ' ', argv$codePath), paste0('/tmp/output_', argv$workspaceRunId, '.log')))
   # handle <- spawn_process('/usr/local/bin/R', c('CMD', 'BATCH', paste0('--workspaceRunId=', argv$workspaceRunId), paste('--args', args), gsub('\\[\\[:space:\\]\\]', ' ', argv$codePath), paste0('/tmp/output_', argv$workspaceRunId, '.log')))
   while(process_state(handle)=='running') {
     Sys.sleep(1)
