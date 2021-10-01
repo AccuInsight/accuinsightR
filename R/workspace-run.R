@@ -17,7 +17,6 @@ accu_workspace_run <- function(client = NULL) {
   parser <- argparse::ArgumentParser()
   parser$add_argument("--workspaceRunId", help="ws run id", type="integer")
   parser$add_argument("--codePath", help="code path for running")
-  parser$add_argument("--stopTimeout", help="workspace stop waiting timeout", type="integer", default=600)
   parser$add_argument("--argument", help="custom code arguments")
   
   argv <- parser$parse_args()
@@ -42,7 +41,6 @@ accu_workspace_run <- function(client = NULL) {
   
   post_data = list(
     "workspaceRunId" = argv$workspaceRunId,
-    "stopTimeout" = argv$stopTimeout,
     "isSuccess" = isSuccess
   )
   
