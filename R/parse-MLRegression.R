@@ -19,7 +19,6 @@ parse_run_result_mlreg <- function() {
 
   # open file(from run_info.json [.result_path.model_json_full]) and parse json
   json_data <- accu_parse_json(input_path = data_path, json_format="records")
-  print(json_data)
   params_data <- parse_run_selected_parameters(jsonData = json_data, constVal = const_val)
   metrics_data <- parse_run_selected_metrics(jsonData = json_data, constVal = const_val)
   true_data <- parse_run_selected_true(jsonData = json_data, constVal = const_val)
