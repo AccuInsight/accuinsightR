@@ -86,7 +86,6 @@ set_run_info <- function (current_run_meta, user_sso_id) {
 call_run_parser <- function () {
   # python _run_parser()
   run_data <- run_parser(get_parser_type())
-  print(run_data$metrics)
   return(run_data)
 }
 

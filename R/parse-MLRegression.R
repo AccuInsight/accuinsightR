@@ -16,13 +16,16 @@ parse_run_result_mlreg <- function() {
   # get model_json_full from run_info.json [.result_path.model_json_full]
   data_path <- get_model_json_full()
   feature_data_path <- get_shap_json_full()
+  
+  print(data_path)
 
   # open file(from run_info.json [.result_path.model_json_full]) and parse json
   json_data <- accu_parse_json(input_path = data_path, json_format="records")
+  print(json_data)
   params_data <- parse_run_selected_parameters(jsonData = json_data, constVal = const_val)
   metrics_data <- parse_run_selected_metrics(jsonData = json_data, constVal = const_val)
   true_data <- parse_run_selected_true(jsonData = json_data, constVal = const_val)
-  predicted_data <- parse_run_selected_preticted(jsonData = json_data, constVal = const_val)
+  predicted_data <- parse_run_selected_predicted(jsonData = json_data, constVal = const_val)
   artifact_data <- parse_run_artifact(jsonData = json_data)
   dependency <- parse_used_library(jsonData = json_data)
   install_package <- get_install_package(isUsage = TRUE)
@@ -36,8 +39,6 @@ parse_run_result_mlreg <- function() {
   result_dict$dependency <- install_package$dependency
   result_dict$feature <- feature_data
   
-  print(true_data)
-  print(predicted_data)
   print(result_dict$metrics)
 
   return(result_dict)

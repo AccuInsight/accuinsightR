@@ -93,9 +93,9 @@ parse_run_selected_true <- function (jsonData, constVal) {
   return(list(result_data))
 }
 
-parse_run_selected_preticted <- function (jsonData, constVal) {
-  true_y_data <- jsonData[[constVal$PREDICTED_Y]]
-  result_data <- set_metric_values(jsonData = true_y_data, key = constVal$PREDICTED_Y)
+parse_run_selected_predicted <- function (jsonData, constVal) {
+  predicted_y_data <- jsonData[[constVal$PREDICTED_Y]]
+  result_data <- set_metric_values(jsonData = predicted_y_data, key = constVal$PREDICTED_Y)
   return(list(result_data))
 }
 
