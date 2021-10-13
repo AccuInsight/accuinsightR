@@ -35,6 +35,10 @@ parse_run_result_mlreg <- function() {
   result_dict$metrics <- c(metrics_data, true_data, predicted_data) # Regression 의 경우 visual 대신에 true_y, predicted_y data 가 추가됨
   result_dict$dependency <- install_package$dependency
   result_dict$feature <- feature_data
+  
+  print(true_data)
+  print(predicted_data)
+  print(result_dict$metrics)
 
   return(result_dict)
 }
