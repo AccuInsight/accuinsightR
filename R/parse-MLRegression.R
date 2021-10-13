@@ -16,8 +16,6 @@ parse_run_result_mlreg <- function() {
   # get model_json_full from run_info.json [.result_path.model_json_full]
   data_path <- get_model_json_full()
   feature_data_path <- get_shap_json_full()
-  
-  print(data_path)
 
   # open file(from run_info.json [.result_path.model_json_full]) and parse json
   json_data <- accu_parse_json(input_path = data_path, json_format="records")
@@ -38,8 +36,6 @@ parse_run_result_mlreg <- function() {
   result_dict$metrics <- c(metrics_data, true_data, predicted_data) # Regression 의 경우 visual 대신에 true_y, predicted_y data 가 추가됨
   result_dict$dependency <- install_package$dependency
   result_dict$feature <- feature_data
-  
-  print(result_dict$metrics)
 
   return(result_dict)
 }

@@ -25,8 +25,8 @@ accu.consts <- list(
   RUN_INFO_MODEL_VISUAL_CSV_PATH = "visual_csv_full",
   RUN_INFO_BEST_MODEL_RDA_PATH = 'save_best_model_rda_path',
   RUN_INFO_BEST_MODEL_JSON_PATH = 'save_best_model_json_path',
-  TRUE_Y = "true_y",
-  PREDICTED_Y = "predicted_y",
+  TRUE_Y = "True_y",
+  PREDICTED_Y = "Predicted_y",
 
   # from model-info-json/xxx.json
   ALL_MODEL_PARAMS = "all_model_params",
