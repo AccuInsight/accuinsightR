@@ -110,20 +110,23 @@ accu_create_experiment <- function(artifact_location = NULL, client = NULL) {
   # run_meta = get_current_run()
   accu_set_current_run()
   run_meta = accu_get_current_run()
+  
+  user_id = env_value[[const_val$ENV_USER_SSO_ID]]
+  model_json = jsonlite::fromJSON(file=run_meta$env_value[[const_val$RUN_INFO_RESULT_PATH]]$env_value[[const_val$RUN_INFO_MODEL_JSON_PATH]])
+  
+  print(model_json)
+  print(model_json$user_id)
+  
+  if (!is.null(model_json$user_id)) {
+    user_id = model_json$user_id 
+  }
+  
   run_proto <- set_run_info(current_run_meta = run_meta,
-               user_sso_id = env_value[[const_val$ENV_USER_SSO_ID]])
+               user_sso_id = user_id)
     git_meta = sprintf('{"url":"%s", "commit": "%s"}', "", "")
   git_meta_data = jsonlite::fromJSON(git_meta)
   # to get parameter and metric
   run_data <- call_run_parser()
-  
-  print(run_data)
-  
-  user_id = env_value[[const_val$ENV_USER_SSO_ID]]
-  print(run_data$user_id)
-  if (!is.null(run_data$user_id)) {
-    user_id = run_data$user_id 
-  }
   
   post_data = list(
     "project_id" = env_value[[const_val$ENV_PROJECT_ID]],
