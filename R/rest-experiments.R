@@ -117,6 +117,8 @@ accu_create_experiment <- function(artifact_location = NULL, client = NULL) {
   # to get parameter and metric
   run_data <- call_run_parser()
   
+  print(run_data)
+  
   user_id = env_value[[const_val$ENV_USER_SSO_ID]]
   print(run_data$user_id)
   if (!is.null(run_data$user_id)) {
