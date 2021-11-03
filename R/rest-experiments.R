@@ -118,9 +118,9 @@ accu_create_experiment <- function(artifact_location = NULL, client = NULL) {
   run_data <- call_run_parser()
   
   user_id = env_value[[const_val$ENV_USER_SSO_ID]]
-  print(run_data$userId)
-  if (!is.null(run_data$userId)) {
-    user_id = run_data$userId 
+  print(run_data$user_id)
+  if (!is.null(run_data$user_id)) {
+    user_id = run_data$user_id 
   }
   
   post_data = list(
