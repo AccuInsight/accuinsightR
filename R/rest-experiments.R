@@ -116,6 +116,7 @@ accu_create_experiment <- function(artifact_location = NULL, client = NULL) {
   git_meta_data = jsonlite::fromJSON(git_meta)
   # to get parameter and metric
   run_data <- call_run_parser()
+  print(run_data)
   post_data = list(
     "project_id" = env_value[[const_val$ENV_PROJECT_ID]],
     "workspace_id" = env_value[[const_val$ENV_WORKSPACE_ID]],
