@@ -55,7 +55,7 @@ gen_metrics_object <- function (metrics, constVal) {
                      make_metrics(key = constVal$SELECTED_METRICS,
                                   values = item[["values"]],
                                   timestamp = item[["timestamp"]],
-                                  steps = item[["key"]])
+                                  steps = list(item[["key"]]))
                     )
   }
 
