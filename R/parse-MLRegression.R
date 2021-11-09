@@ -21,6 +21,7 @@ parse_run_result_mlreg <- function() {
   json_data <- accu_parse_json(input_path = data_path, json_format="records")
   params_data <- parse_run_selected_parameters(jsonData = json_data, constVal = const_val)
   metrics_data <- parse_run_selected_metrics(jsonData = json_data, constVal = const_val)
+  grpc_metrics_data <- gen_metrics_object(metrics_data, constVal = const_val))
   true_data <- parse_run_selected_true(jsonData = json_data, constVal = const_val)
   predicted_data <- parse_run_selected_predicted(jsonData = json_data, constVal = const_val)
   artifact_data <- parse_run_artifact(jsonData = json_data)
@@ -32,7 +33,7 @@ parse_run_result_mlreg <- function() {
   result_dict$metrics <- metrics_data
   result_dict$params <- params_data
   result_dict$artifact <- artifact_data$artifact
-  result_dict$metrics <- c(metrics_data, true_data, predicted_data) # Regression 의 경우 visual 대신에 true_y, predicted_y data 가 추가됨
+  result_dict$metrics <- c(grpc_metrics_data, metrics_data, true_data, predicted_data) # Regression 의 경우 visual 대신에 true_y, predicted_y data 가 추가됨
   result_dict$dependency <- install_package$dependency
   result_dict$feature <- feature_data
 

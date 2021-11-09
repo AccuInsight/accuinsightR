@@ -85,10 +85,7 @@ parse_run_selected_metrics <- function (jsonData, constVal) {
   selected_metrics <- jsonData[[constVal$SELECTED_METRICS]]
   result_dict <- set_metric_data(jsonData = selected_metrics)
   
-  grpc_metrics <- gen_metrics_object(result_dict, constVal)
-  
-  
-  return(c(result_dict, grpc_metrics))
+  return(result_dict)
 }
 
 parse_run_selected_true <- function (jsonData, constVal) {
