@@ -17,7 +17,6 @@ accu_workspace_run <- function(client = NULL) {
   parser <- argparse::ArgumentParser()
   parser$add_argument("--workspaceRunId", help="ws run id", type="integer")
   parser$add_argument("--codePath", help="code path for running")
-  parser$add_argument("--stopTimeout", help="workspace stop waiting timeout", type="integer", default=600)
   parser$add_argument("--argument", help="custom code arguments")
   
   argv <- parser$parse_args()
@@ -29,7 +28,7 @@ accu_workspace_run <- function(client = NULL) {
   }
   
   library(subprocess)
-  handle <- spawn_process('/usr/local/bin/R', c('CMD', 'BATCH', paste0('--workspaceRunId=', argv$workspaceRunId), paste('--args', args), argv$codePath, paste0('/tmp/output_', argv$workspaceRunId, '.log')))
+  handle <- spawn_process('/usr/local/bin/R', c('CMD', 'BATCH', paste('--args', args), argv$codePath, paste0('/tmp/output_', argv$workspaceRunId, '.log')))
   while(process_state(handle)=='running') {
     Sys.sleep(1)
   }
@@ -42,7 +41,6 @@ accu_workspace_run <- function(client = NULL) {
   
   post_data = list(
     "workspaceRunId" = argv$workspaceRunId,
-    "stopTimeout" = argv$stopTimeout,
     "isSuccess" = isSuccess
   )
   

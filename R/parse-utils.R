@@ -22,6 +22,8 @@ set_metric_data <- function(jsonData) {
     data <- jsonData[[key]]
     result_dict <- c(result_dict,list(set_metric_values(data, key)))
   }
+  result_dict <- c(result_dict, list(gen_metrics_object(result_dict, const_val)))
+  
   return(result_dict)
 }
 
@@ -53,7 +55,7 @@ gen_metrics_object <- function (metrics, constVal) {
                      make_metrics(key = constVal$SELECTED_METRICS,
                                   values = item[["values"]],
                                   timestamp = item[["timestamp"]],
-                                  steps = item[["steps"]])
+                                  steps = list(item[["key"]]))
                     )
   }
 
@@ -84,18 +86,19 @@ parse_run_selected_metrics <- function (jsonData, constVal) {
   # get selected_metrics
   selected_metrics <- jsonData[[constVal$SELECTED_METRICS]]
   result_dict <- set_metric_data(jsonData = selected_metrics)
+  
   return(result_dict)
 }
 
 parse_run_selected_true <- function (jsonData, constVal) {
   true_y_data <- jsonData[[constVal$TRUE_Y]]
-  result_data <- set_metric_values(jsonData = true_y_data, key = constVal$TRUE_Y)
+  result_data <- set_metric_values(jsonData = true_y_data, key = tolower(constVal$TRUE_Y))
   return(list(result_data))
 }
 
-parse_run_selected_preticted <- function (jsonData, constVal) {
-  true_y_data <- jsonData[[constVal$PREDICTED_Y]]
-  result_data <- set_metric_values(jsonData = true_y_data, key = constVal$PREDICTED_Y)
+parse_run_selected_predicted <- function (jsonData, constVal) {
+  predicted_y_data <- jsonData[[constVal$PREDICTED_Y]]
+  result_data <- set_metric_values(jsonData = predicted_y_data, key = tolower(constVal$PREDICTED_Y))
   return(list(result_data))
 }
 

@@ -20,14 +20,14 @@ write_json = function(json_object, json_path) {
 #' @param test_data: test data for computing roc, pr
 #' @export
 #' @examples
-add_experiment = function(model_name, test_data){
-
+add_experiment = function(model_name, test_data, user_id = NULL){
   model_info = list()
   Sys.setenv(TZ= "Asia/Seoul")
 
   run_id = uuid::UUIDgenerate()
   method = paste0(modelMethod(model_name), modelType(model_name))
 
+  model_info$user_id = user_id
   model_info$logging_time = Sys.time()                                     # logging_time
   model_info$logging_run_id = run_id                                       # logging_run_id
   model_info$used_library = modelLibrary(model_name)                 # used library
