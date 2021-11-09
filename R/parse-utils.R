@@ -57,7 +57,7 @@ gen_metrics_object <- function (metrics, constVal) {
                     )
   }
 
-  return(grpc_metrics)
+  return(c(grpc_metrics, metrics))
 }
 
 parse_run_selected_metrics <- function (jsonData, constVal) {
