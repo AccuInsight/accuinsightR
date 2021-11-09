@@ -33,7 +33,7 @@ parse_run_result_mlreg <- function() {
   result_dict$metrics <- metrics_data
   result_dict$params <- params_data
   result_dict$artifact <- artifact_data$artifact
-  result_dict$metrics <- c(grpc_metrics_data, metrics_data, true_data, predicted_data) # Regression 의 경우 visual 대신에 true_y, predicted_y data 가 추가됨
+  result_dict$metrics <- c(metrics_data, true_data, predicted_data) # Regression 의 경우 visual 대신에 true_y, predicted_y data 가 추가됨
   result_dict$dependency <- install_package$dependency
   result_dict$feature <- feature_data
 
