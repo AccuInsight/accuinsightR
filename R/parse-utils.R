@@ -57,7 +57,7 @@ gen_metrics_object <- function (metrics, constVal) {
                     )
   }
 
-  return(c(grpc_metrics, metrics))
+  return(grpc_metrics)
 }
 
 parse_run_selected_metrics <- function (jsonData, constVal) {
@@ -84,7 +84,11 @@ parse_run_selected_metrics <- function (jsonData, constVal) {
   # get selected_metrics
   selected_metrics <- jsonData[[constVal$SELECTED_METRICS]]
   result_dict <- set_metric_data(jsonData = selected_metrics)
-  return(gen_metrics_object(result_dict, constVal))
+  
+  grpc_metrics <- gen_metrics_object(result_dict, constVal)
+  
+  
+  return(c(result_dict, grpc_metrics))
 }
 
 parse_run_selected_true <- function (jsonData, constVal) {
