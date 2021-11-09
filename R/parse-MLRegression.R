@@ -21,7 +21,6 @@ parse_run_result_mlreg <- function() {
   json_data <- accu_parse_json(input_path = data_path, json_format="records")
   params_data <- parse_run_selected_parameters(jsonData = json_data, constVal = const_val)
   metrics_data <- parse_run_selected_metrics(jsonData = json_data, constVal = const_val)
-  grpc_metrics_data <- gen_metrics_object(metrics_data, constVal = const_val)
   true_data <- parse_run_selected_true(jsonData = json_data, constVal = const_val)
   predicted_data <- parse_run_selected_predicted(jsonData = json_data, constVal = const_val)
   artifact_data <- parse_run_artifact(jsonData = json_data)
