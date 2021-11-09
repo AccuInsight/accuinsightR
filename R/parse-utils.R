@@ -23,8 +23,7 @@ set_metric_data <- function(jsonData) {
     result_dict <- c(result_dict,list(set_metric_values(data, key)))
   }
   
-  metrics <- result_dict[["metrics"]]
-  grpc_metrics <- gen_metrics_object(metrics, const_val)
+  grpc_metrics <- c(gen_metrics_object(result_dict, const_val), result_dict)
   
   return(grpc_metrics)
 }
