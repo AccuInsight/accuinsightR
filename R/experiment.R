@@ -92,7 +92,7 @@ add_experiment = function(model_name, test_data, user_id = NULL){
 
   # write a runs/run_info.json file
   current_dir_list = get_current_file_path(model_name)
-  run_name = paste0(method, '-', gsub('-', '', run_id))
+  run_name = paste0(model_info$fitted_model, '-', model_info$logging_run_id))
   run_info_list = run_info(model_name, run_name, current_dir_list)
   run_info_json = jsonlite::toJSON(run_info_list, pretty = TRUE)
 
