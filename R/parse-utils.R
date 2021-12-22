@@ -16,6 +16,7 @@ init_metric_data <- function () {
 }
 
 set_metric_data <- function(jsonData) {
+  const_val <- accu.consts
   result_dict <- list()
   metric_keys = names(jsonData)
   for (key in metric_keys) {

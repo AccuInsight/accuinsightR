@@ -65,6 +65,9 @@ set_run_info <- function (current_run_meta, user_sso_id) {
     path = current_run_meta[[const_val$RUN_INFO_MODEL_FILE_PATH]]
   else
     tryCatch({path = current_Rfile <- rstudioapi::getSourceEditorContext()$path}, error = function(e) {print("current_Rfile couldn't be found")})
+    if (substr(path, 0, 2)=='~/') {
+      path = sub('~/', '', path)
+    }
   
   run_info <- list(
     name = current_run_meta[[const_val$RUN_INFO_NAME]],
@@ -113,9 +116,6 @@ accu_create_experiment <- function(artifact_location = NULL, client = NULL) {
 
   user_id = env_value[[const_val$ENV_USER_SSO_ID]]
   model_json = jsonlite::fromJSON(txt=run_meta$result_path$model_json_full)
-  
-  print(model_json)
-  print(model_json$user_id)
   
   if (!is.null(model_json$user_id)) {
     user_id = model_json$user_id 
