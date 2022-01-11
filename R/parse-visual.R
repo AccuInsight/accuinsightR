@@ -240,7 +240,7 @@ parse_visual_data <- function (visual_data) {
   return(c(grpc_metrics,  mapped_metrics))
 }
 
-parse_run_visual <- function (jsonData) {
+parse_run_visual <- function (jsonData, run_info_json) {
   # parse 'for-visual-json/xxx.json'
 
   # get all "keys" field
@@ -264,7 +264,7 @@ parse_run_visual <- function (jsonData) {
   # get visual file path from run_info.json [result_path.visual_json_full]
   # ex. ~\runs\results-XGBClassifier\for-visual-json\XGBClassifier-visual-1.json
   visual_result <- list()
-  data_path <- get_visual_json_full()
+  data_path <- get_visual_json_full(run_info_json)
 
   if (!is.null(data_path)) {
     # read visual data

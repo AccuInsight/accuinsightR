@@ -31,7 +31,7 @@ add_experiment = function(model_name, test_data, user_id = NULL){
   model_info$logging_time = Sys.time()                                     # logging_time
   model_info$logging_run_id = run_id                                       # logging_run_id
   model_info$used_library = modelLibrary(model_name)                 # used library
-  model_info$fitted_model = method                        # method - "svmRadialClassification"
+  model_info$fitted_model = method                                   # method - "svmRadialClassification"
   model_info$selected_params = tunedParams(model_name)
   model_info$selected_metrics$tmp = metricValue(model_name)
   names(model_info$selected_metrics) = metricType(model_name)
@@ -99,7 +99,7 @@ add_experiment = function(model_name, test_data, user_id = NULL){
   write_json(run_info_json, get_run_info_json_path())
 
   saveModel(model_name, model_info$logging_run_id)
-  accu_create_experiment()
+  accu_create_experiment(run_info_json)
 }
 
 
