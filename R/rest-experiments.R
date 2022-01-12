@@ -116,6 +116,7 @@ accu_create_experiment <- function(run_meta, artifact_location = NULL, client = 
 
   user_id = env_value[[const_val$ENV_USER_SSO_ID]]
   model_json = jsonlite::fromJSON(txt=run_meta$result_path$model_json_full)
+  print(model_json)
   
   if (!is.null(model_json$user_id)) {
     user_id = model_json$user_id 
