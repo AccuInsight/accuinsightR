@@ -104,6 +104,7 @@ accu_create_experiment <- function(run_meta, artifact_location = NULL, client = 
   accu_set_tracking_uri()
   const_val <- accu.consts
   client <- resolve_client(client)
+  print(typeof(run_meta))
   print(run_meta)
 
   # read workspace environment
