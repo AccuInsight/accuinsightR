@@ -99,7 +99,7 @@ add_experiment = function(model_name, test_data, user_id = NULL){
   write_json(run_info_json, get_run_info_json_path())
 
   saveModel(model_name, model_info$logging_run_id)
-  accu_create_experiment(run_info_json)
+  accu_create_experiment(run_info_list)
 }
 
 
