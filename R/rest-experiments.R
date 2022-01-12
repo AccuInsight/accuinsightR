@@ -99,11 +99,12 @@ call_run_parser <- function (run_info_json) {
 #' @param artifact_location Location where all artifacts for this experiment are stored. If
 #'   not provided, the remote server will select an appropriate default.
 #' @export
-accu_create_experiment <- function(run_meta, artifact_location = NULL, client = NULL) {
+accu_create_experiment <- function(run_info_json, artifact_location = NULL, client = NULL) {
   # TODO refer lc_create_run() function in python
   accu_set_tracking_uri()
   const_val <- accu.consts
   client <- resolve_client(client)
+  run_meta <- jsonlite::fromJSON(run_info_json, simplifyVector = TRUE)
   print(typeof(run_meta))
   print(run_meta)
 
