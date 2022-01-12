@@ -105,8 +105,6 @@ accu_create_experiment <- function(run_info_json, artifact_location = NULL, clie
   const_val <- accu.consts
   client <- resolve_client(client)
   run_meta <- jsonlite::fromJSON(run_info_json, simplifyVector = TRUE)
-  print(typeof(run_meta))
-  print(run_meta)
 
   # read workspace environment
   # project_id, workspace_id, experiment_id and user_id
@@ -119,7 +117,6 @@ accu_create_experiment <- function(run_info_json, artifact_location = NULL, clie
 
   user_id = env_value[[const_val$ENV_USER_SSO_ID]]
   model_json = jsonlite::fromJSON(txt=run_meta$result_path$model_json_full)
-  print(model_json)
   
   if (!is.null(model_json$user_id)) {
     user_id = model_json$user_id 
@@ -131,7 +128,6 @@ accu_create_experiment <- function(run_info_json, artifact_location = NULL, clie
   git_meta_data = jsonlite::fromJSON(git_meta)
   # to get parameter and metric
   run_data <- call_run_parser(run_meta)
-  print(run_data)
   
   post_data = list(
     "project_id" = env_value[[const_val$ENV_PROJECT_ID]],
