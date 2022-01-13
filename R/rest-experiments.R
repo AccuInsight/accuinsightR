@@ -110,7 +110,7 @@ accu_create_experiment <- function(run_meta, artifact_location = NULL, client = 
   env_value = get_os_env()
   # get current run meta data from [runs/run_info.json]
   # run_meta = get_current_run()
-  accu_set_current_run()
+  accu_set_current_run(run_meta)
   # run_meta = accu_get_current_run()
 
   user_id = env_value[[const_val$ENV_USER_SSO_ID]]
@@ -122,7 +122,7 @@ accu_create_experiment <- function(run_meta, artifact_location = NULL, client = 
   
   run_proto <- set_run_info(current_run_meta = run_meta,
                user_sso_id = user_id)
-    git_meta = sprintf('{"url":"%s", "commit": "%s"}', "", "")
+  git_meta = sprintf('{"url":"%s", "commit": "%s"}', "", "")
   git_meta_data = jsonlite::fromJSON(git_meta)
   # to get parameter and metric
   run_data <- call_run_parser(run_meta)
@@ -152,4 +152,9 @@ accu_create_experiment <- function(run_meta, artifact_location = NULL, client = 
   )
   response$experiment_id
   return(post_data)
+}
+
+get_current_run_id <- function() {
+  print(run_meta)
+  return(run_meta$run_name)
 }
