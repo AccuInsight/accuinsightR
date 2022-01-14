@@ -11,10 +11,10 @@ ModelType <- function(enum = c(
   }
 
 
-get_parser_type <- function() {
+get_parser_type <- function(run_info_json) {
   parser_type = NA
   const_val = accu.consts
-  run_info_json = get_current_run()
+  # run_info_json = get_current_run()
   run_result_path = run_info_json[[const_val$RUN_INFO_RESULT_PATH]]
   visual_json_path = NA
   visual_csv_path = NA
@@ -55,22 +55,22 @@ get_parser_type <- function() {
   return(parser_type)
 }
 
-run_parser <- function(parser_type) {
+run_parser <- function(parser_type, run_info_json) {
   # parser ML/DL results
   if (parser_type == ModelType("DL_REGRESSION")) {
-    return(parse_run_result_dlreg())
+    return(parse_run_result_dlreg(run_info_json))
   }
 
   if (parser_type == ModelType("DL_CLASSIFICATION")) {
-    return(parse_run_result_dl_class())
+    return(parse_run_result_dl_class(run_info_json))
   }
 
   if (parser_type == ModelType("ML_REGRESSION")) {
-    return(parse_run_result_mlreg())
+    return(parse_run_result_mlreg(run_info_json))
   }
 
   if (parser_type == ModelType("ML_CLASSIFICATION")) {
-      return(parse_run_result_mlclass())
+      return(parse_run_result_mlclass(run_info_json))
   }
 }
 

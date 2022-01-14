@@ -1,7 +1,7 @@
 #' Parse ml regression
 #'
 #' @export
-parse_run_result_mlreg <- function() {
+parse_run_result_mlreg <- function(run_info_json) {
   # parse ml regression
   const_val <- accu.consts
 
@@ -14,8 +14,8 @@ parse_run_result_mlreg <- function() {
   )
 
   # get model_json_full from run_info.json [.result_path.model_json_full]
-  data_path <- get_model_json_full()
-  feature_data_path <- get_shap_json_full()
+  data_path <- get_model_json_full(run_info_json)
+  feature_data_path <- get_shap_json_full(run_info_json)
 
   # open file(from run_info.json [.result_path.model_json_full]) and parse json
   json_data <- accu_parse_json(input_path = data_path, json_format="records")

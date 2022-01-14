@@ -86,10 +86,9 @@ set_run_info <- function (current_run_meta, user_sso_id) {
   return(run_info)
 }
 
-call_run_parser <- function () {
+call_run_parser <- function (run_info_json) {
   # python _run_parser()
-  run_data <- run_parser(get_parser_type())
-  return(run_data)
+  return(run_parser(get_parser_type(run_info_json), run_info_json))
 }
 
 #' Create Experiment
@@ -100,7 +99,7 @@ call_run_parser <- function () {
 #' @param artifact_location Location where all artifacts for this experiment are stored. If
 #'   not provided, the remote server will select an appropriate default.
 #' @export
-accu_create_experiment <- function(artifact_location = NULL, client = NULL) {
+accu_create_experiment <- function(run_meta, artifact_location = NULL, client = NULL) {
   # TODO refer lc_create_run() function in python
   accu_set_tracking_uri()
   const_val <- accu.consts
@@ -111,22 +110,22 @@ accu_create_experiment <- function(artifact_location = NULL, client = NULL) {
   env_value = get_os_env()
   # get current run meta data from [runs/run_info.json]
   # run_meta = get_current_run()
-  accu_set_current_run()
-  run_meta = accu_get_current_run()
+  accu_set_current_run(run_meta)
+  # run_meta = accu_get_current_run()
 
   user_id = env_value[[const_val$ENV_USER_SSO_ID]]
   model_json = jsonlite::fromJSON(txt=run_meta$result_path$model_json_full)
   
-  if (!is.null(model_json$user_id)) {
+  if (!identical(model_json$user_id, list()) {
     user_id = model_json$user_id 
   }
   
   run_proto <- set_run_info(current_run_meta = run_meta,
                user_sso_id = user_id)
-    git_meta = sprintf('{"url":"%s", "commit": "%s"}', "", "")
+  git_meta = sprintf('{"url":"%s", "commit": "%s"}', "", "")
   git_meta_data = jsonlite::fromJSON(git_meta)
   # to get parameter and metric
-  run_data <- call_run_parser()
+  run_data <- call_run_parser(run_meta)
   
   post_data = list(
     "project_id" = env_value[[const_val$ENV_PROJECT_ID]],
