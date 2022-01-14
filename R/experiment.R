@@ -30,6 +30,9 @@ accuinsight <- setRefClass("accuinsight",
                              set_user_id = function(user_id_param){
                                user_id <<- user_id_param
                                },
+                             unset_user_id = function(){
+                               user_id <<- character(0)
+                             },
                              add_experiment = function(model_name, test_data){
                                model_info = list()
                                Sys.setenv(TZ= "Asia/Seoul")
