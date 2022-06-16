@@ -8,8 +8,13 @@
 #' @export
 accu_set_tracking_uri <- function() {
   constVal <- accu.consts
-  print(constVal$BACK_END_API_URL)
-  .globals$tracking_uri <- constVal$BACK_END_API_URL
+
+  env_value = get_os_env('ENV')
+  tracking_uri <- paste0('http://', env_value[[constVal$ENV_BACK_END_API_URL]], ':', env_value[[constVal$ENV_BACK_END_API_PORT]], '/')
+  print(tracking_uri)
+
+  .globals$tracking_uri <- tracking_uri
+  # .globals$tracking_uri <- constVal$BACK_END_API_URL
   #invisible(uri)
 }
 
