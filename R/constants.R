@@ -3,7 +3,7 @@
 #' @export
 accu.consts <- list(
   RUNS_ROOT="runs",
-  EXPERIMENT_INFO_FILE="accu.env",
+  EXPERIMENT_INFO_FILE=".accu_env",
   EXPERIMENT_INFO_FILE_DIR="/usr",
   EXPERIMENT_INFO_HOME_DIR="/home/rstudio",
   ENV_PROJECT_ID="LC_PROJECT_ID",
