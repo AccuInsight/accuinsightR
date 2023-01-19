@@ -40,7 +40,7 @@ get_os_env <- function (env_type = "LC", env_path = NULL, env_file = NULL) {
 #' @export
 get_runs_path <- function () {
   const_val <- accu.consts
-  home_dir <- const_val$EXPERIMENT_INFO_FILE_DIR
+  home_dir <- const_val$EXPERIMENT_INFO_HOME_DIR
   run_dir = file.path(home_dir, const_val$RUNS_ROOT)
 
   if (file.exists(run_dir) == FALSE){
