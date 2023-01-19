@@ -9,10 +9,6 @@ accu_workspace_run <- function(client = NULL) {
   const_val <- accu.consts
   client <- resolve_client(client)
 
-  print("Check0")
-  print(const_val)
-  print(client)
-
   # read workspace environment
   # project_id, workspace_id
   # add env_path hard coding
@@ -38,7 +34,7 @@ accu_workspace_run <- function(client = NULL) {
   }
   
   library(subprocess)
-  handle <- spawn_process('/usr/local/bin/R', c('CMD', 'BATCH', paste('--args', args), argv$codePath, paste0('/tmp/output_', argv$workspaceRunId, '.log')))
+  handle <- spawn_process('/usr/local/bin/R', c('CMD', 'BATCH', paste('--args', "'" + args +"'"), argv$codePath, paste0('/tmp/output_', argv$workspaceRunId, '.log')))
   while(process_state(handle)=='running') {
     Sys.sleep(1)
   }

@@ -129,6 +129,9 @@ accu_rest <- function( ..., client, query = NULL, data = NULL, env_value = NULL,
 #' @importFrom httr GET POST add_headers config content
 accu_ws_run_rest <- function( ..., mode, client, query = NULL, data = NULL, env_value = NULL, verb = "GET", version = "1.0",
                        max_rate_limit_interval=60) {
+
+  print("------ API TEST ---------")
+
   host_creds <- client$get_host_creds()
   rest_config <- get_rest_config(host_creds)
   args <- list(...)
@@ -137,7 +140,9 @@ accu_ws_run_rest <- function( ..., mode, client, query = NULL, data = NULL, env_
 
   api_url <- paste0(host_creds$host, accu_ws_run_rest_path(version, env_value, mode))
   req_headers <- do.call(httr::add_headers, rest_config$headers)
-  
+
+
+
   get_response <- switch(
     verb,
     GET = function() {
