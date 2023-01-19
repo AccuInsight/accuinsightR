@@ -132,6 +132,9 @@ accu_ws_run_rest <- function( ..., mode, client, query = NULL, data = NULL, env_
   host_creds <- client$get_host_creds()
   rest_config <- get_rest_config(host_creds)
   args <- list(...)
+
+  sprintf('rest args %s', args);
+
   api_url <- paste0(host_creds$host, accu_ws_run_rest_path(version, env_value, mode))
   req_headers <- do.call(httr::add_headers, rest_config$headers)
   

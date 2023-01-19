@@ -8,19 +8,29 @@ accu_workspace_run <- function(client = NULL) {
   accu_set_tracking_uri()
   const_val <- accu.consts
   client <- resolve_client(client)
-  
+
+  print("Check0")
+  print(const_val)
+  print(client)
+
   # read workspace environment
   # project_id, workspace_id
   # add env_path hard coding
   env_value = get_os_env()
-  
+
+  print("Check1")
+  print(env_value)
+
   parser <- argparse::ArgumentParser()
   parser$add_argument("--workspaceRunId", help="ws run id", type="integer")
   parser$add_argument("--codePath", help="code path for running")
   parser$add_argument("--argument", help="custom code arguments")
   
   argv <- parser$parse_args()
-  
+
+  print("Check2")
+  print(argv)
+
   if (!is.null(argv$argument)) {
     args <- gsub('\\[\\[:hyphen:\\]\\]', '--', gsub('\\[\\[:equal:\\]\\]', '=', gsub('\\[\\[:space:\\]\\]', ' ', argv$argument)))
   } else {
@@ -32,6 +42,9 @@ accu_workspace_run <- function(client = NULL) {
   while(process_state(handle)=='running') {
     Sys.sleep(1)
   }
+  print("Check3")
+  print(handle)
+
   return_code <- process_return_code(handle)
   
   isSuccess <- "true"
